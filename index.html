@@ -1,170 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="icon" type="https://img.sanishtech.com/u/c5ef7d76920c9657b6b264efd8b23f1e.gif" href="https://img.sanishtech.com/u/c5ef7d76920c9657b6b264efd8b23f1e.gif">
-    <title>Discord Nitro Gift</title>
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="icon" type="image/gif" href="https://img.sanishtech.com/u/c5ef7d76920c9657b6b264efd8b23f1e.gif">  
+    <title>Discord Nitro Gift</title>  
 
-    <meta property="og:title" content="You've been gifted a subscription!">
-    <meta property="og:description" content="Claim your Nitro gift now. Valid for 48 hours.">
-    <meta property="og:image" content="https://img.sanishtech.com/u/c5ef7d76920c9657b6b264efd8b23f1e.gif">
-    <meta name="theme-color" content="#43b581">
+    <meta property="og:title" content="You've been gifted a subscription!">  
+    <meta property="og:description" content="Claim your Nitro gift now. Valid for 48 hours.">  
+    <meta property="og:image" content="https://img.sanishtech.com/u/c5ef7d76920c9657b6b264efd8b23f1e.gif">  
+    <meta name="theme-color" content="#43b581">  
 
-    <style>
-        body {
-            background-color: #000;
-            margin: 0;
-            overflow: hidden;
-            font-family: 'Consolas', monospace;
-        }
+    <style>  
+        body {  
+            background-color: #000;  
+            margin: 0;  
+            overflow: hidden;  
+            font-family: 'Consolas', monospace;  
+        }  
 
-        canvas {
+        canvas {  
+            position: fixed;  
+            top: 0;  
+            left: 0;  
+            z-index: 1;  
+        }  
+
+        .ad-popup {  
+            position: fixed;  
+            z-index: 1000;  
+            background: #000;  
+            border: 2px solid #43b581;  
+            box-shadow: 0 0 20px rgba(67, 181, 129, 0.5);  
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);  
+        }  
+
+        @keyframes popIn {  
+            from { transform: scale(0); opacity: 0; }  
+            to { transform: scale(1); opacity: 1; }  
+        }  
+
+        .center-content {  
+            position: absolute;  
+            top: 50%;  
+            left: 50%;  
+            transform: translate(-50%, -50%);  
+            z-index: 50;  
+            text-align: center;  
+            display: none;   
+        }  
+
+        .nitro-icon {  
+            width: 130px;  
+            height: 130px;  
+            border-radius: 25px;  
+            box-shadow: 0 0 40px #43b581;  
+            animation: pulse 0.6s infinite alternate;  
+        }  
+
+        .hacked-text {  
+            color: #43b581;  
+            font-size: 2.2rem;  
+            font-weight: bold;  
+            text-shadow: 0 0 10px #43b581;  
+            margin-top: 20px;  
+        }  
+
+        .virus-warning {
             position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-
-        .ad-popup {
-            position: fixed;
-            z-index: 1000;
-            background: #000;
-            border: 2px solid #43b581;
-            box-shadow: 0 0 20px rgba(67, 181, 129, 0.5);
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .center-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 50;
+            top: 15%;
+            width: 100%;
             text-align: center;
-            display: none; 
-        }
-
-        .nitro-icon {
-            width: 130px;
-            height: 130px;
-            border-radius: 25px;
-            box-shadow: 0 0 40px #43b581;
-            animation: pulse 0.6s infinite alternate;
-        }
-
-        .hacked-text {
-            color: #43b581;
-            font-size: 2.2rem;
+            color: red;
+            font-size: 3rem;
             font-weight: bold;
-            text-shadow: 0 0 10px #43b581;
-            margin-top: 20px;
+            text-shadow: 0 0 15px red;
+            z-index: 9999;
+            animation: flash 0.4s infinite;
+            display: none;
         }
 
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
+        @keyframes flash {
+            0%,100% { opacity:1; }
+            50% { opacity:0; }
         }
+
+        @keyframes pulse {  
+            from { transform: scale(1); }  
+            to { transform: scale(1.1); }  
+        }  
     </style>
-</head>
+</head>  
 
-<body>
+<body>  
 
-    <!-- 🔊 MUSIC -->
-    <audio id="bgMusic" autoplay loop>
-        <source src="virus.mp3" type="audio/mpeg">
-    </audio>
+<audio id="bgMusic" autoplay loop>  
+    <source src="/virus.mp3" type="audio/mpeg">  
+</audio>  
 
-    <canvas id="binaryCanvas"></canvas>
+<canvas id="binaryCanvas"></canvas>  
 
-    <div class="center-content" id="mainContent">
-        <img src="https://kommodo.ai/og/gKyRvSr6bV69J2C86Cjo.png" class="nitro-icon">
-        <div class="hacked-text">SYSTEM OVERLOAD<br>101010101010</div>
-    </div>
+<div class="virus-warning" id="virusText">⚠️ YOUR PHONE GOT VIRUSES!! ⚠️</div>
 
-    <div id="adLayer"></div>
+<div class="center-content" id="mainContent">  
+    <img src="https://kommodo.ai/og/gKyRvSr6bV69J2C86Cjo.png" class="nitro-icon">  
+    <div class="hacked-text">SYSTEM OVERLOAD<br>101010101010</div>  
+</div>  
 
-    <script>
-        // 🔊 FORCE PLAY MUSIC (fix autoplay block)
-        window.addEventListener("click", function () {
-            const music = document.getElementById("bgMusic");
-            music.play();
-        });
+<div id="adLayer"></div>  
 
-        document.getElementById("bgMusic").volume = 1.0;
+<script>  
+    // 🔊 Force play music
+    window.addEventListener("click", function () {  
+        document.getElementById("bgMusic").play();  
+        startVoiceWarning();
+    });  
 
-        // Matrix Effect
-        const canvas = document.getElementById('binaryCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    document.getElementById("bgMusic").volume = 1.0;  
 
-        const fontSize = 18;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-
-        function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#43b581"; 
-            ctx.font = fontSize + "px monospace";
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = Math.random() > 0.5 ? "1" : "0";
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
+    // 🎤 Voice Warning
+    function startVoiceWarning() {
+        function speakAlert() {
+            const msg = new SpeechSynthesisUtterance();
+            msg.text = "Warning! Warning! Your phone got viruses! Dangerous malware detected! Immediate action required!";
+            msg.lang = "en-US";
+            msg.volume = 1;
+            msg.rate = 0.85;
+            msg.pitch = 0.7;
+            speechSynthesis.speak(msg);
         }
 
-        setInterval(draw, 33);
+        speakAlert();
+        document.getElementById("virusText").style.display = "block";
 
-        // Ad spawn system
-        function spawnRandomAd() {
-            const adWrap = document.createElement('div');
-            adWrap.className = 'ad-popup';
+        setInterval(() => {
+            speakAlert();
+        }, 9000);
 
-            const randomTop = Math.floor(Math.random() * (window.innerHeight - 400)) + "px";
-            const randomLeft = Math.floor(Math.random() * (window.innerWidth - 160)) + "px";
+        setInterval(() => {
+            alert("⚠️ VIRUS DETECTED! SYSTEM UNDER ATTACK!");
+        }, 12000);
+    }
 
-            adWrap.style.top = randomTop;
-            adWrap.style.left = randomLeft;
+    // Matrix Effect  
+    const canvas = document.getElementById('binaryCanvas');  
+    const ctx = canvas.getContext('2d');  
+    canvas.width = window.innerWidth;  
+    canvas.height = window.innerHeight;  
 
-            adWrap.innerHTML = `
-                <div style="position: relative;">
-                    <iframe src="https://publisher.linkvertise.com/cdn/ads/LV-160x600/index.html" frameborder="0" height="600" width="160"></iframe>
-                    <a href="https://publisher.linkvertise.com/ac/1058460" target="_blank" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;"></a>
-                </div>
-            `;
+    const fontSize = 18;  
+    const columns = canvas.width / fontSize;  
+    const drops = Array(Math.floor(columns)).fill(1);  
 
-            document.getElementById('adLayer').appendChild(adWrap);
-        }
+    function draw() {  
+        ctx.fillStyle = "rgba(0, 0, 0, 0.1)";  
+        ctx.fillRect(0, 0, canvas.width, canvas.height);  
+        ctx.fillStyle = "#43b581";   
+        ctx.font = fontSize + "px monospace";  
 
-        setTimeout(() => {
-            document.getElementById('mainContent').style.display = 'block';
+        for (let i = 0; i < drops.length; i++) {  
+            const text = Math.random() > 0.5 ? "1" : "0";  
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);  
 
-            spawnRandomAd();
-            spawnRandomAd();
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {  
+                drops[i] = 0;  
+            }  
+            drops[i]++;  
+        }  
+    }  
 
-            setInterval(() => {
-                spawnRandomAd();
-            }, 1000);
+    setInterval(draw, 33);  
 
-        }, 10000);
+    // Ad spawn system  
+    function spawnRandomAd() {  
+        const adWrap = document.createElement('div');  
+        adWrap.className = 'ad-popup';  
 
-        window.onresize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-    </script>
-</body>
+        const randomTop = Math.floor(Math.random() * (window.innerHeight - 400)) + "px";  
+        const randomLeft = Math.floor(Math.random() * (window.innerWidth - 160)) + "px";  
+
+        adWrap.style.top = randomTop;  
+        adWrap.style.left = randomLeft;  
+
+        adWrap.innerHTML = `  
+            <div style="position: relative;">  
+                <iframe src="https://publisher.linkvertise.com/cdn/ads/LV-160x600/index.html" frameborder="0" height="600" width="160"></iframe>  
+                <a href="https://publisher.linkvertise.com/ac/1058460" target="_blank" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;"></a>  
+            </div>  
+        `;  
+
+        document.getElementById('adLayer').appendChild(adWrap);  
+    }  
+
+    setTimeout(() => {  
+        document.getElementById('mainContent').style.display = 'block';  
+        spawnRandomAd();  
+        spawnRandomAd();  
+
+        setInterval(() => {  
+            spawnRandomAd();  
+        }, 1000);  
+
+    }, 10000);  
+
+    window.onresize = () => {  
+        canvas.width = window.innerWidth;  
+        canvas.height = window.innerHeight;  
+    };  
+</script>
+
+</body>  
 </html>
