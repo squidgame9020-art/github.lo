@@ -6,3 +6,5 @@
 [https://discard2.github.io/Free_Nitro/](https://discard2.github.io/Free_Nitro/)
 
 📋 **Copy this:**
+
+https://github.com/discard2/Free_Nitro/blob/4c5739db1621b4c35d1b8f21835ecb7b90890a88/335420-nitro-boost-new-animated.gif
